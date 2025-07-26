@@ -98,6 +98,24 @@ Cracks/
 - Node.js 18+ (for local development)
 - Python 3.11+ (for local development)
 
+### Quick Commands Reference
+```bash
+# Start everything with Docker
+docker-compose up --build
+
+# Frontend development
+docker exec cracks-pwa-frontend-1 npm run dev
+
+# Backend shell
+docker exec cracks-pwa-backend-1 python manage.py shell
+
+# View logs
+docker-compose logs -f
+
+# Stop everything
+docker-compose down
+```
+
 ### Quick Start with Docker
 
 1. Clone the repository
@@ -222,6 +240,59 @@ python manage.py shell
 - **Service Discovery**: Automatic networking
 - **Volume Mounting**: Live code updates
 - **Environment Variables**: Centralized configuration
+
+#### Docker Development Commands
+
+**Frontend Commands:**
+```bash
+# Start development server
+docker exec cracks-pwa-frontend-1 npm run dev
+
+# Or use start (same thing)
+docker exec cracks-pwa-frontend-1 npm start
+
+# Web build
+docker exec cracks-pwa-frontend-1 npm run web
+
+# Check available scripts
+docker exec cracks-pwa-frontend-1 npm run
+```
+
+**Backend Commands:**
+```bash
+# Django shell
+docker exec cracks-pwa-backend-1 python manage.py shell
+
+# Create superuser
+docker exec cracks-pwa-backend-1 python manage.py createsuperuser
+
+# Check migrations
+docker exec cracks-pwa-backend-1 python manage.py showmigrations
+
+# Run tests
+docker exec cracks-pwa-backend-1 python manage.py test
+```
+
+**General Docker Commands:**
+```bash
+# View logs
+docker-compose logs -f frontend
+docker-compose logs -f backend
+
+# Restart specific service
+docker-compose restart frontend
+docker-compose restart backend
+
+# Access container shell
+docker exec -it cracks-pwa-frontend-1 sh
+docker exec -it cracks-pwa-backend-1 sh
+
+# Stop all services
+docker-compose down
+
+# Rebuild and start
+docker-compose up --build
+```
 
 ## 📦 Container Architecture
 
