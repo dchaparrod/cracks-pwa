@@ -55,7 +55,7 @@ services:
       - ./frontend:/app
       - /app/node_modules
     ports:
-      - "3000:3000"  # Web application
+      - "3000:8081"  # Web application (Expo dev server)
       - "19000:19000"  # Expo DevTools
       - "19001:19001"  # Expo DevTools
       - "19002:19002"  # Expo DevTools
