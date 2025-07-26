@@ -100,11 +100,14 @@ Cracks/
 
 ### Quick Commands Reference
 ```bash
-# Start everything with Docker
+# Start everything with Docker (Universal Mode)
 docker-compose up --build
 
 # Frontend development
-docker exec cracks-pwa-frontend-1 npm run dev
+docker exec cracks-pwa-frontend-1 npm start
+
+# Frontend web-only
+docker exec cracks-pwa-frontend-1 npm run web
 
 # Backend shell
 docker exec cracks-pwa-backend-1 python manage.py shell
@@ -124,9 +127,17 @@ docker-compose down
    docker-compose up --build
    ```
 3. Access the application:
-   - Frontend: http://localhost:3000
+   - Frontend: http://localhost:3002
    - Backend API: http://localhost:8000
    - Django Admin: http://localhost:8000/admin
+
+### Port Mapping Summary
+
+| Service | Port | Description |
+|---------|------|-------------|
+| Backend API | 8000 | Django REST API |
+| Frontend (Web) | 3000 | Web application |
+| Expo DevTools | 19000 | Mobile debugging tools |
 
 ### Local Development
 
@@ -241,17 +252,26 @@ python manage.py shell
 - **Volume Mounting**: Live code updates
 - **Environment Variables**: Centralized configuration
 
+#### Development Mode
+
+**Universal Mode (Recommended):**
+```bash
+docker-compose up --build
+```
+- Frontend runs in universal mode (`npm start`)
+- Supports web, iOS, and Android development
+- Includes Expo DevTools for mobile debugging
+- Access at: http://localhost:3000 (Web)
+- Access at: http://localhost:19000 (Expo DevTools)
+
 #### Docker Development Commands
 
 **Frontend Commands:**
 ```bash
-# Start development server
-docker exec cracks-pwa-frontend-1 npm run dev
-
-# Or use start (same thing)
+# Universal Development (Web + Mobile)
 docker exec cracks-pwa-frontend-1 npm start
 
-# Web build
+# Web-only Development
 docker exec cracks-pwa-frontend-1 npm run web
 
 # Check available scripts
