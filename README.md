@@ -118,18 +118,89 @@ Cracks/
 python3 -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 
-# Install all dependencies
-npm run install:all
+# Install Python dependencies
+pip install -r requirements.txt
+
+# Install Node.js dependencies
+cd frontend
+npm install --legacy-peer-deps
+
+# Return to root
+cd ..
 ```
 
 #### Running the Application
-```bash
-# Start both frontend and backend concurrently
-npm run dev
 
-# Or start them separately:
-npm run start:backend  # Django server on :8000
-npm run start:frontend # React Native Web on :3000
+**Option 1: Start both frontend and backend concurrently**
+```bash
+# Make sure virtual environment is activated
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+# Start both servers
+npm run dev
+```
+
+**Option 2: Start them separately**
+
+**Terminal 1 - Backend:**
+```bash
+# Activate virtual environment
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+# Start Django server
+cd backend
+python manage.py runserver
+# Backend will be available at: http://localhost:8000
+```
+
+**Terminal 2 - Frontend:**
+```bash
+# Start React Native Web development server
+cd frontend
+npm start
+# Frontend will be available at: http://localhost:3000
+```
+
+#### Development Commands
+
+**Frontend Development:**
+```bash
+cd frontend
+
+# Start development server
+npm start
+
+# Build for web
+npm run web
+
+# Clear cache and restart
+npm start -- --clear
+
+# Install new dependencies
+npm install --legacy-peer-deps
+```
+
+**Backend Development:**
+```bash
+# Activate virtual environment first
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+cd backend
+
+# Run Django server
+python manage.py runserver
+
+# Create migrations
+python manage.py makemigrations
+
+# Apply migrations
+python manage.py migrate
+
+# Create superuser
+python manage.py createsuperuser
+
+# Django shell
+python manage.py shell
 ```
 
 ## 🔧 Development Workflow
@@ -246,6 +317,62 @@ cd backend && python manage.py collectstatic
 
 # Deploy with Docker
 docker-compose -f docker-compose.prod.yml up --build
+```
+
+## 🔧 Troubleshooting
+
+### Common Issues
+
+**Frontend Issues:**
+```bash
+# Clear npm cache
+npm cache clean --force
+
+# Remove node_modules and reinstall
+rm -rf node_modules package-lock.json
+npm install --legacy-peer-deps
+
+# Expo issues
+npx expo install --fix
+```
+
+**Backend Issues:**
+```bash
+# Database connection issues
+python manage.py dbshell
+
+# Migration issues
+python manage.py makemigrations
+python manage.py migrate
+
+# Static files
+python manage.py collectstatic
+```
+
+**Virtual Environment Issues:**
+```bash
+# Recreate virtual environment
+rm -rf venv
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
+### Debug Mode
+
+**Frontend Debug:**
+```bash
+cd frontend
+npm start -- --clear
+# Open browser dev tools for console errors
+```
+
+**Backend Debug:**
+```bash
+# Activate venv first
+source venv/bin/activate
+cd backend
+python manage.py runserver --verbosity=2
 ```
 
 ## 🤝 Contributing
